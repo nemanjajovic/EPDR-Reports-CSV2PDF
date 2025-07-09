@@ -15,6 +15,7 @@ Install the required Python packages:
 
 ```bash
 pip install pandas pymupdf
+```
 
 ## Usage
 
