@@ -54,6 +54,8 @@ def main():
 
     print(f"PDF saved to: {output_pdf}")
 
+    os.remove(csv_file)
+
     # Open PDF after conversion
     os.startfile(output_pdf)
 
