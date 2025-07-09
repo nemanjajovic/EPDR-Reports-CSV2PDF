@@ -1,4 +1,4 @@
-# CSV to PDF Converter
+# CSV2PDF Converter (Private specific usecase only)
 
 This Python script allows you to convert tab-delimited `.csv` files into clean, human-readable PDF documents. It is specifically designed to extract only the 3rd and 10th columns from the CSV and format them with proper spacing for readability.
 
