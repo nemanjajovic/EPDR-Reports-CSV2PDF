@@ -4,7 +4,7 @@ import os
 import fitz  # PyMuPDF
 import pandas as pd
 
-folder_path = os.path.join(os.path.expanduser("~"), "Downloads")
+folder_path = os.path.join(os.path.expanduser("~"), "Downloads/Attachments")
 csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
 
 pdf = fitz.open()
@@ -51,13 +51,14 @@ for csv_file in csv_files:
         for _, row in df_filtered.iterrows():
             write_row(row.iloc[0], row.iloc[1])
 
-        # os.remove(csv_file) # Keep commented out while development cycle to keep the csv files
-
     except Exception as e:
         print(f"Failed to process {csv_file}: {e}")
+    # os.remove(
+    #     csv_file
+    # )  # Uncomment this if you want to delete all CSV files after merging
 
 if pages_added > 0:
-    output_pdf = os.path.join(folder_path, "Report.pdf")
+    output_pdf = os.path.join(folder_path, "../Report.pdf")
     pdf.save(output_pdf)
     pdf.close()
     print(f"Merged PDF saved as: {output_pdf}")
