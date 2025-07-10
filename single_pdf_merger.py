@@ -4,7 +4,7 @@ import os
 import fitz  # PyMuPDF
 import pandas as pd
 
-folder_path = os.path.join(os.path.expanduser("~"), "Downloads/Attachments")
+folder_path = os.path.join(os.path.expanduser("~"), "Downloads/EPDR_Reports/Disabled")
 csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
 
 pdf = fitz.open()
