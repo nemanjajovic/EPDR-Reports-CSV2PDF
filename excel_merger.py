@@ -17,17 +17,15 @@ def excel_generator(folder_path, report_name):
     for csv_file in csv_files:
         try:
             df = pd.read_csv(csv_file, delimiter="\t", encoding="utf-16")
-            if df.shape[1] < 10:
-                print(f"Skipping {csv_file}: not enough columns.")
-                continue
 
             df_filtered = df.iloc[:, [2, 9]].copy()
-            df_filtered.columns = ["Device Name", "Status"]
-            df_filtered["Entered By"] = ""  # Empty column for manual entry
+            df_filtered.columns = ["Device", "Group"]
+            df_filtered["Revised by"] = ""  # Empty column for manual entry
+            df_filtered["Case number"] = ""
 
             # Add identifier from filename (without .csv)
             csv_name = os.path.splitext(os.path.basename(csv_file))[0]
-            df_filtered.insert(0, "Source File", csv_name)
+            df_filtered.insert(0, "Account", csv_name)
 
             # Append to combined dataframe
             combined_df = pd.concat([combined_df, df_filtered], ignore_index=True)
