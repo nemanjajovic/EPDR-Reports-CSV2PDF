@@ -27,14 +27,22 @@ def ensure_page():
         pages_added += 1
 
 
-def write_row(col1, col2):
+def write_row(col1, col2, align="left"):
     global current_line
     ensure_page()
     y = margin + current_line * line_height
-    current_page.insert_text((margin, y), str(col1), fontsize=10, fontname="helv")
-    current_page.insert_text(
-        (margin + column_spacing, y), str(col2), fontsize=10, fontname="helv"
-    )
+
+    if align == "center":
+        text = str(col1)
+        text_width = fitz.get_text_length(text, fontsize=10, fontname="helv")
+        x = (page_width - text_width) / 2
+        current_page.insert_text((x, y), text, fontsize=10, fontname="helv")
+    else:
+        current_page.insert_text((margin, y), str(col1), fontsize=10, fontname="helv")
+        current_page.insert_text(
+            (margin + column_spacing, y), str(col2), fontsize=10, fontname="helv"
+        )
+
     current_line += 1
 
 
@@ -46,7 +54,11 @@ for csv_file in csv_files:
             continue
 
         df_filtered = df.iloc[:, [2, 9]]
-        write_row(*df_filtered.columns)  # Write header once per file
+        # Write CSV file name (without full path)
+        csv_name = os.path.basename(csv_file)
+        write_row("", "")
+        write_row(f"--- {csv_name} ---", "", align="center")  # Title row for this file
+        write_row(*df_filtered.columns)  # Write column headers
 
         for _, row in df_filtered.iterrows():
             write_row(row.iloc[0], row.iloc[1])
